@@ -8,15 +8,16 @@
     <title>Simon</title>
 </head>
 <body>
-
-    <div class="simonbutton" sound="s1">1</div>
-    <div class="simonbutton" sound="s2">2</div>
-    <div class="simonbutton" sound="s3">3</div>
-    <div class="simonbutton" sound="s4">4</div>
+<button onclick="playSound(0)">Start</button>
+    <div class="simonbutton" sound="s1" id="btns1">1</div>
+    <div class="simonbutton" sound="s2" id="btns2">2</div>
+    <div class="simonbutton" sound="s3" id="btns3">3</div>
+    <div class="simonbutton" sound="s4" id="btns4">4</div>
+    <div id="notes"></div>
     <audio id="s1" src="https://s3.amazonaws.com/freecodecamp/simonSound1.mp3" autostart="false" ></audio>
     <audio id="s2" src="https://s3.amazonaws.com/freecodecamp/simonSound2.mp3" autostart="false" ></audio>
     <audio id="s3" src="https://s3.amazonaws.com/freecodecamp/simonSound3.mp3" autostart="false" ></audio>
-    <audio id="s4" src="https://s3.amazonaws.com/freecodecamp/simonSound4.mp3" autostart="false" oncanplaythrough="playSound(0)"></audio>
+    <audio id="s4" src="https://s3.amazonaws.com/freecodecamp/simonSound4.mp3" autostart="false" ></audio>
     <script src="simon.js"></script>
 </body>
 </html>
