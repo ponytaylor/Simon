@@ -1,7 +1,12 @@
 var btns = document.getElementsByClassName("simonbutton");
+var svgbtns = document.getElementsByClassName("svgbutton");
 var notes = document.getElementById("notes");
-for(var i=0; i<btns.length;i++){
+/*for(var i=0; i<btns.length;i++){
     btns[i].addEventListener("click", playAndSetClickEvent);
+}
+*/
+for(var i=0; i<svgbtns.length;i++){
+    svgbtns[i].addEventListener("click", playAndSetClickEvent);
 }
 
 var audios = document.getElementsByTagName('audio');
@@ -12,6 +17,14 @@ for(var i=0; i<audios.length;i++){
 function endAudio() {
     console.log("audio ended ");
 }
+
+
+function playIt() {
+        document.getElementById(this.getAttribute("sound")).play();
+        this.classList.add("playing");
+    
+}
+
 function playAndSetClickEvent() {
     if (theGame.playerTurn){
         document.getElementById(this.getAttribute("sound")).play();
@@ -21,18 +34,6 @@ function playAndSetClickEvent() {
         theGame.checkForBadNote();
     }
 }
-/*
-var numToPlay = 0;
-var playback = false;
-var gameplayback = false;
-var winner = false;
-var loser = false;
-
-var btnClicks = [];
-var userStatus;
-var waitforinput = false;
-
-*/
 
 window.addEventListener("play", function(evt)
 {
@@ -50,119 +51,7 @@ window.addEventListener("ended", function(evt)
     }
   
 }, true);
-/*
-function playSound(num){
-    console.log(num);
- playback = true;
-    if (num == rands.length) {
-        playback = false;
-        return;
-    }
-    var randNext = rands[num];
-    var soundid = btns[randNext].getAttribute("sound");
-    //console.log(soundid);
-    var soundElem = document.getElementById(soundid);
-    var btnElem = document.getElementById("btn" + soundid);
-    //console.log(soundElem.readyState);
-    soundElem.playbackrate = "0.5";
-    btnElem.classList.add("playing");
-    soundElem.play();
 
-}
-function playSounds(num){
-    console.log("playSounds", num);
-    gameplayback = true;
-    if (num >= level) {
-        gameplayback = false;
-        console.log("level reached");
-        notes.dispatchEvent(pevent);
-        return;
-    }
-    var randNext = rands[num];
-    var soundid = btns[randNext].getAttribute("sound");
-    //console.log(soundid);
-    var soundElem = document.getElementById(soundid);
-    var btnElem = document.getElementById("btn" + soundid);
-//console.log(soundElem.readyState);
-    soundElem.playbackrate = "0.5";
-    btnElem.classList.add("playing");
-    soundElem.play();
-
-}
-
-//setTimeout(function(){ playSound(3); }, 3000);
-
-//playSound(0);
-
-for(var i=0; i<btns.length;i++){
-    //btns[i].style.backgroundColor = "rgb("+ i*50 +", 33, 223)";
-    btns[i].addEventListener("click", function(){
-        
-        document.getElementById(this.getAttribute("sound")).play();
-        btnClicks.push(this.id.slice(-1) - 1);
-        console.log(btnClicks);
-        for(var cl=0; cl< btnClicks.length; cl++){
-            if(btnClicks[cl] != rands[cl]){
-                notes.innerHTML = "bad note";
-                userStatus = false;
-            }
-        }
-    });
-}
-
-function checkInput(){
-    console.log("checkInput");
-    waitforinput = true;
-    var id = setInterval(checkUserInput, 300);
-    function checkUserInput() {
-      if (userStatus == false) {
-        clearInterval(id);
-        loser=true;
-        waitforinput = false;
-        notes.dispatchEvent(cevent);
-      } else {
-          if (btnClicks.length == level) {
-            clearInterval(id);
-            notes.innerHTML = "good job";
-            waitforinput = false;
-            notes.dispatchEvent(cevent);
-          }
-        
-      }
-    }
-
-}
-
-function takeaturn(callback){
-    playSounds(0);
-    btnClicks = [];
-    callback();
-}
-
-// Create the event.
-var pevent = document.createEvent('Event');
-var cevent = document.createEvent('Event');
-
-// Define that the event name is 'build'.
-pevent.initEvent('goplayer', true, true);
-cevent.initEvent('gocomputer', true, true);
-
-// Listen for the event.
-notes.addEventListener('goplayer', function (e) {
-  // e.target matches elem
-  console.log(e);
-  btnClicks = [];
-}, false);
-
-notes.addEventListener('gocomputer', function (e) {
-    // e.target matches elem
-    console.log(e);
-    level++;
-    console.log ("setting level to ", level); 
-    playSounds(0);
-  }, false);
-  
-*/
 
 function Player(){
     this.numCorrect = 0;
@@ -218,7 +107,7 @@ function Computer(){
     }
 
     this.playNext = function(){
-        console.log("playnext ");
+       // console.log("playnext ");
         this.currentPlayNum++;
         if (this.currentPlayNum >= theGame.level) {
             console.log("level reached");
@@ -233,7 +122,7 @@ function Computer(){
 
 
 function setRands(randArr){
-    for (var r = 0; r < 8; r++){
+    for (var r = 0; r < 5; r++){
         var randNum = Math.floor(Math.random() * 4);
         randArr.push(randNum);
     }
@@ -243,6 +132,7 @@ function setRands(randArr){
 function SimonGame(){
     this.level = 1;
     this.rands = [];
+    this.speed = 1;
     this.playerTurn = false;
     this.computerTurn = false;
     this.computer = new Computer();
@@ -260,6 +150,7 @@ function SimonGame(){
     }
     this.startPlayerTurn= function(){
         this.computerTurn = false;
+        //console.timeEnd('compturn');
         console.log("setting comp turn false");
         this.playerTurn = true;
         this.player.takeTurn(this.rands, this.level);
@@ -289,7 +180,16 @@ function SimonGame(){
             }
             else{
                 this.level++;
-                setTimeout(this.startComputerTurn(), 3000);
+                if (this.level > this.rands.length){
+                    // winner
+                    console.log("winner");
+                    notes.innerHTML = "winner!"
+                }
+                else {
+                    console.log('start comp');
+                    //console.time('compturn');
+                    setTimeout(function(){theGame.startComputerTurn()}, 3000);
+                }
             }
         }
     }
@@ -297,8 +197,8 @@ function SimonGame(){
 
 var theGame;
 
-//function startSimonGame(){
+function startSimonGame(){
     theGame = new SimonGame();
     theGame.initGame();
-//}
+}
 

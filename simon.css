@@ -5,6 +5,8 @@
 }
 .playing{
     border: 5px solid purple;
+   /* stroke: purple;*/
+    fill:url(#MyGradient);
 }
 .s1{
     background-color: red;
@@ -17,4 +19,8 @@
 }
 .s4{
     background-color: blue;
+}
+.svgbox{
+    margin-left: 200px;
+
 }
