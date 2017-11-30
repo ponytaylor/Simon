@@ -1,10 +1,6 @@
-var btns = document.getElementsByClassName("simonbutton");
 var svgbtns = document.getElementsByClassName("svgbutton");
 var notes = document.getElementById("notes");
-/*for(var i=0; i<btns.length;i++){
-    btns[i].addEventListener("click", playAndSetClickEvent);
-}
-*/
+
 for(var i=0; i<svgbtns.length;i++){
     svgbtns[i].addEventListener("click", playAndSetClickEvent);
 }
@@ -94,7 +90,7 @@ function Computer(){
     var playSounds = function( num){
         console.log("playSounds", num);
         var randNext = theGame.rands[num];
-        var soundid = btns[randNext].getAttribute("sound");
+        var soundid = svgbtns[randNext].getAttribute("sound");
         //console.log(soundid);
         var soundElem = document.getElementById(soundid);
         var btnElem = document.getElementById("btn" + soundid);
