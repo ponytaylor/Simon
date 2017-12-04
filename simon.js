@@ -1,5 +1,7 @@
 var svgbtns = document.getElementsByClassName("svgbutton");
 var notes = document.getElementById("notes");
+var levdiv = document.getElementById("leveldiv");
+var strictinput = document.getElementById("strict_input");
 
 for(var i=0; i<svgbtns.length;i++){
     svgbtns[i].addEventListener("click", playAndSetClickEvent);
@@ -133,15 +135,22 @@ function SimonGame(){
     this.computerTurn = false;
     this.computer = new Computer();
     this.player = new Player();
+    var strictMode = false;
 
     this.initGame = function (){
          setRands(this.rands);
+         for(var i=0; i<svgbtns.length;i++){
+            svgbtns[i].classList.remove("winner");
+         }
+         strictMode = strictinput.checked;
+         levdiv.innerHTML = this.level;
          this.startComputerTurn();
          console.log(this.rands);
     }
     this.startComputerTurn= function(){
         console.log("setting comp turn true");
         this.computerTurn = true;
+        levdiv.innerHTML = this.level;
         this.computer.takeTurn(this.rands, this.level);
     }
     this.startPlayerTurn= function(){
@@ -172,7 +181,14 @@ function SimonGame(){
         }
         if (!this.playerTurn){
             if (this.player.getStatus() == 'bad'){
-                notes.innerHTML = "loooooser";
+                if (strictMode){
+                    notes.innerHTML = "loooooser";
+                }
+                else {
+                    console.log('start comp');
+                    //console.time('compturn');
+                    setTimeout(function(){theGame.startComputerTurn()}, 3000);
+                }
             }
             else{
                 this.level++;
@@ -180,8 +196,14 @@ function SimonGame(){
                     // winner
                     console.log("winner");
                     notes.innerHTML = "winner!"
+                    
+for(var i=0; i<svgbtns.length;i++){
+    svgbtns[i].classList.add("winner");
+}
+
                 }
                 else {
+                    
                     console.log('start comp');
                     //console.time('compturn');
                     setTimeout(function(){theGame.startComputerTurn()}, 3000);
