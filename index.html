@@ -9,22 +9,20 @@
     <title>Simon</title>
 </head>
 <body>
-<div class="strict_option">
-    <div>Strict: OFF</div>
-    <label class="switch">
-        <input id="strict_input" type="checkbox">
-        <span class="slider"></span>
-    </label>
-    <div>ON</div>
+    <div class="strict">
+
+
+<div class="strict-label">&nbsp;&nbsp;&nbsp;STRICT</div>
 </div>
-<button onclick="startSimonGame()">Start game</button>
-    <div id="notes"></div>
-    <audio id="s1" src="https://s3.amazonaws.com/freecodecamp/simonSound1.mp3" autostart="false" ></audio>
-    <audio id="s2" src="https://s3.amazonaws.com/freecodecamp/simonSound2.mp3" autostart="false" ></audio>
-    <audio id="s3" src="https://s3.amazonaws.com/freecodecamp/simonSound3.mp3" autostart="false" ></audio>
-    <audio id="s4" src="https://s3.amazonaws.com/freecodecamp/simonSound4.mp3" autostart="false" ></audio>
+
+   
+<audio id="s1" src="https://s3.amazonaws.com/freecodecamp/simonSound1.mp3" autostart="false" ></audio>
+<audio id="s2" src="https://s3.amazonaws.com/freecodecamp/simonSound2.mp3" autostart="false" ></audio>
+<audio id="s3" src="https://s3.amazonaws.com/freecodecamp/simonSound3.mp3" autostart="false" ></audio>
+<audio id="s4" src="https://s3.amazonaws.com/freecodecamp/simonSound4.mp3" autostart="false" ></audio>
+<div class="gamediv">
 <div class="svgbox">
-<svg viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" version="1.1">
     <defs>
         <linearGradient id="MyGradient">
           <stop offset="5%" stop-color="purple" />
@@ -36,17 +34,31 @@
           </linearGradient>
       </defs>
 <title>Game</title>
-<path class="svgbutton" sound="s1" id="btns1" d="M300, 200 v-150 a150,150 0 0,1 150,150 z" fill="green" stroke="white" stroke-width="5" />
-<path class="svgbutton" sound="s2" id="btns2" d="M300, 200 v-150 a150,150 0 0,0 -150,150 z" fill="yellow" stroke="white" stroke-width="5" />
-<path class="svgbutton" sound="s3" id="btns3" d="M300, 200 h-150 a150,150 0 0,0 150,150 z" fill="blue" stroke="white" stroke-width="5" />
-<path class="svgbutton" sound="s4" id="btns4" d="M300, 200 h150 a150,150 0 0,1 -150,150 z" fill="red" stroke="white" stroke-width="5" />
-<circle class="middlegame" cx="300" cy="200" r="40" stroke="black" stroke-width="8" fill="white"></circle>
-<text id="leveldiv" x="300" y="200" text-anchor="middle" stroke="black" stroke-width="2px" dy=".3em">0</text>
+<path class="svgbutton" sound="s1" id="btns1" d="M150, 150 v-150 a150,150 0 0,1 150,150 z" fill="green" stroke="white" stroke-width="5" />
+<path class="svgbutton" sound="s2" id="btns2" d="M150, 150 v-150 a150,150 0 0,0 -150,150 z" fill="yellow" stroke="white" stroke-width="5" />
+<path class="svgbutton" sound="s3" id="btns3" d="M150, 150 h-150 a150,150 0 0,0 150,150 z" fill="blue" stroke="white" stroke-width="5" />
+<path class="svgbutton" sound="s4" id="btns4" d="M150, 150 h150 a150,150 0 0,1 -150,150 z" fill="red" stroke="white" stroke-width="5" />
+<circle class="middlegame" cx="150" cy="150" r="40" stroke="black" stroke-width="8" fill="white"></circle>
+<text id="leveldiv" x="150" y="154" text-anchor="middle" stroke="black" stroke-width="2px" dy=".3em">0</text>
+<g id="startgroup">
+<rect id="start_btn" x="135" y="123"  width="34" height="14" rx="5" />
+<text id="starttxt" x="151" y="133" text-anchor="middle" fill="white" stroke-width="1px">START</text>
+</g>
 <!--<path d="M500,500 h400 a400,400 0 0,1 -400,400 z" fill="yellow" stroke="white" stroke-width="5" /> -->
 
 
 </svg></div>
-
+<!-- <button id="btn_start" onclick="startSimonGame()">Start</button> -->
+<div class="strict_option">
+     <div> &nbsp;&nbsp;&nbsp;OFF</div>
+     <label class="switch">
+         <input id="strict_input" type="checkbox">
+         <span class="slider"></span>
+     </label>
+     <div>ON</div>
+ </div>
+</div>
+<div id="notes"></div>
     <script src="simon.js"></script>
 </body>
 </html>

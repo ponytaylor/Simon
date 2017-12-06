@@ -2,10 +2,13 @@ var svgbtns = document.getElementsByClassName("svgbutton");
 var notes = document.getElementById("notes");
 var levdiv = document.getElementById("leveldiv");
 var strictinput = document.getElementById("strict_input");
+var startbtn = document.getElementById("startgroup");
 
 for(var i=0; i<svgbtns.length;i++){
     svgbtns[i].addEventListener("click", playAndSetClickEvent);
 }
+
+startbtn.addEventListener("click", startSimonGame);
 
 var audios = document.getElementsByTagName('audio');
 for(var i=0; i<audios.length;i++){
@@ -143,6 +146,7 @@ function SimonGame(){
             svgbtns[i].classList.remove("winner");
          }
          strictMode = strictinput.checked;
+         //startbtn.innerHTML="Restart";
          levdiv.innerHTML = this.level;
          this.startComputerTurn();
          console.log(this.rands);

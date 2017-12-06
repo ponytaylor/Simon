@@ -24,7 +24,12 @@
     background-color: blue;
 }
 .svgbox{
-    margin-left: 200px;
+    /*margin:0px  auto;*/
+    width:50%;
+    border: 5px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .middlegame{
     font-size: 30px;
@@ -33,7 +38,7 @@
     position: relative;
     display: inline-block;
     width: 60px;
-    height: 34px;
+    height: 30px;
 }
 .switch input {
     display: none;
@@ -48,13 +53,13 @@
     background-color: rgb(33, 142, 185);
     -webkit-transition: .4s;
     transition: .4s;
-    border-radius: 34px;
+    border-radius: 30px;
 }
 .slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
+    height: 23px;
+    width: 23px;
     left: 4px;
     bottom: 4px;
     background-color: white;
@@ -74,9 +79,46 @@ input:checked + .slider:before{
     -ms-transform: translateX(26px);
     transform: translateX(26px);
 }
+
+.strict{
+    display: flex;
+    flex-direction: column;
+   position: absolute;
+    align-items: center;
+    top: 8%;
+    left:28%;
+}
 .strict_option{
     display: flex;
-    width: 180px;
+    width: 130px;
     justify-content: space-between;
     align-items: center;
+    position: absolute;
+    left: 25%;
+    top:3%;
+}
+.gamediv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#btn_start{
+    border-radius: 35px;
+    position: absolute;
+    top: 50%;
+
+}
+
+#start_btn{
+    border-radius: 30%;
+
+}
+#starttxt{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .5em;
+
+}
+
+#startgroup{
+    cursor: pointer; 
 }
