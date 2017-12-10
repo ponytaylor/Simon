@@ -20,6 +20,7 @@
 <audio id="s2" src="https://s3.amazonaws.com/freecodecamp/simonSound2.mp3" autostart="false" ></audio>
 <audio id="s3" src="https://s3.amazonaws.com/freecodecamp/simonSound3.mp3" autostart="false" ></audio>
 <audio id="s4" src="https://s3.amazonaws.com/freecodecamp/simonSound4.mp3" autostart="false" ></audio>
+<audio id="whoops" src="Whoops.m4a" autostart="false" ></audio>
 <div class="gamediv">
 <div class="svgbox">
 <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -42,11 +43,8 @@
 <text id="leveldiv" x="150" y="154" text-anchor="middle" stroke="black" stroke-width="2px" dy=".3em">0</text>
 <g id="startgroup">
 <rect id="start_btn" x="135" y="123"  width="34" height="14" rx="5" />
-<text id="starttxt" x="151" y="133" text-anchor="middle" fill="white" stroke-width="1px">START</text>
+<text id="starttxt" x="150" y="133" text-anchor="middle" fill="white" stroke-width="1px">START</text>
 </g>
-<!--<path d="M500,500 h400 a400,400 0 0,1 -400,400 z" fill="yellow" stroke="white" stroke-width="5" /> -->
-
-
 </svg></div>
 <!-- <button id="btn_start" onclick="startSimonGame()">Start</button> -->
 <div class="strict_option">
@@ -57,8 +55,9 @@
      </label>
      <div>ON</div>
  </div>
+ <div id="notes"></div>
 </div>
-<div id="notes"></div>
+
     <script src="simon.js"></script>
 </body>
 </html>

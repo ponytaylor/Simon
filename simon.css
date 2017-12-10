@@ -24,9 +24,8 @@
     background-color: blue;
 }
 .svgbox{
-    /*margin:0px  auto;*/
     width:50%;
-    border: 5px solid black;
+    /*border: 5px solid black;*/
     display: flex;
     align-items: center;
     justify-content: center;
@@ -121,4 +120,7 @@ input:checked + .slider:before{
 
 #startgroup{
     cursor: pointer; 
+}
+#notes{
+    font-size: 2em;
 }

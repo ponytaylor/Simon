@@ -3,12 +3,14 @@ var notes = document.getElementById("notes");
 var levdiv = document.getElementById("leveldiv");
 var strictinput = document.getElementById("strict_input");
 var startbtn = document.getElementById("startgroup");
+var whoops_audio = document.getElementById("whoops");
 
 for(var i=0; i<svgbtns.length;i++){
     svgbtns[i].addEventListener("click", playAndSetClickEvent);
 }
 
 startbtn.addEventListener("click", startSimonGame);
+strictinput.addEventListener("click", strictChange);
 
 var audios = document.getElementsByTagName('audio');
 for(var i=0; i<audios.length;i++){
@@ -16,9 +18,15 @@ for(var i=0; i<audios.length;i++){
 }
 
 function endAudio() {
-    console.log("audio ended ");
+    //console.log("audio ended ");
 }
 
+function strictChange(){
+    if (theGame){
+      notes.innerHTML = "Starting Over! Strict mode changed.";
+      setTimeout(function(){startSimonGame();}, 2000);
+    }
+}
 
 function playIt() {
         document.getElementById(this.getAttribute("sound")).play();
@@ -31,19 +39,19 @@ function playAndSetClickEvent() {
         document.getElementById(this.getAttribute("sound")).play();
         theGame.player.btnClicks.push(this.id.slice(-1) - 1);
         this.classList.add("playing");
-        console.log(theGame.player.btnClicks);
+        //console.log(theGame.player.btnClicks);
         theGame.checkForBadNote();
     }
 }
 
 window.addEventListener("play", function(evt)
 {
-    console.log("Play", evt.target);
+    //console.log("Play", evt.target);
 }, true);
 
 window.addEventListener("ended", function(evt)
 {
-    console.log("Ended", evt.target);
+    //console.log("Ended", evt.target);
     
     var btnElem = document.getElementById("btn" + evt.target.id);
     btnElem.classList.remove("playing");
@@ -67,18 +75,16 @@ function Player(){
     }
 
     this.takeTurn= function(){
-        console.log("player turn");
-        notes.innerHTML = "play it";
+        //console.log("player turn");
+        notes.innerHTML = "Your Turn: Play it!";
         this.btnClicks = [];
        
     }
 
     this.endTurn = function(){
-        //for(var i=0; i<btns.length;i++){
-            console.log("end turn");
-            //btns[i].removeEventListener("click", this.setClickEvent);
-            
-       // }
+       
+           // console.log("end turn");
+
     }
 }
 
@@ -86,14 +92,14 @@ function Computer(){
     this.currentPlayNum = 0;
     
     this.takeTurn = function(){
-        console.log("computer turn");
-        notes.innerHTML = "listen to this!";
+        //console.log("computer turn");
+        notes.innerHTML = "Listen";
         this.currentPlayNum = 0;
         playSounds(this.currentPlayNum);
     }
 
     var playSounds = function( num){
-        console.log("playSounds", num);
+        //console.log("playSounds", num);
         var randNext = theGame.rands[num];
         var soundid = svgbtns[randNext].getAttribute("sound");
         //console.log(soundid);
@@ -103,7 +109,7 @@ function Computer(){
         soundElem.playbackrate = "0.5";
         soundElem.currentTime = 0;
         btnElem.classList.add("playing");
-        console.log(soundElem, btnElem);
+        //console.log(soundElem, btnElem);
         soundElem.play();
     }
 
@@ -111,8 +117,8 @@ function Computer(){
        // console.log("playnext ");
         this.currentPlayNum++;
         if (this.currentPlayNum >= theGame.level) {
-            console.log("level reached");
-            //notes.dispatchEvent(pevent);
+            //console.log("level reached");
+          
             theGame.startPlayerTurn();
             return;
         }
@@ -127,7 +133,7 @@ function setRands(randArr){
         var randNum = Math.floor(Math.random() * 4);
         randArr.push(randNum);
     }
-    console.log(randArr);
+    //console.log(randArr);
 }
 
 function SimonGame(){
@@ -146,13 +152,12 @@ function SimonGame(){
             svgbtns[i].classList.remove("winner");
          }
          strictMode = strictinput.checked;
-         //startbtn.innerHTML="Restart";
          levdiv.innerHTML = this.level;
          this.startComputerTurn();
-         console.log(this.rands);
+        // console.log(this.rands);
     }
     this.startComputerTurn= function(){
-        console.log("setting comp turn true");
+        //console.log("setting comp turn true");
         this.computerTurn = true;
         levdiv.innerHTML = this.level;
         this.computer.takeTurn(this.rands, this.level);
@@ -160,14 +165,15 @@ function SimonGame(){
     this.startPlayerTurn= function(){
         this.computerTurn = false;
         //console.timeEnd('compturn');
-        console.log("setting comp turn false");
+        //console.log("setting comp turn false");
         this.playerTurn = true;
         this.player.takeTurn(this.rands, this.level);
     }
     this.checkForBadNote = function(){
         for(var cl=0; cl< this.player.btnClicks.length; cl++){
             if(this.player.btnClicks[cl] != this.rands[cl]){
-                notes.innerHTML = "bad note";
+                whoops_audio.play();
+                notes.innerHTML = "Try Again!";
                 this.playerTurn = false;
                 this.player.setStatus('bad');
                 this.player.endTurn();
@@ -177,7 +183,7 @@ function SimonGame(){
         // check to see if we have successfully finished the turn
         if(this.playerTurn){
             if (this.player.btnClicks.length == this.level){
-                notes.innerHTML = "good job!";
+                notes.innerHTML = "Good Job!";
                 this.playerTurn = false;
                 this.player.setStatus('good');
                 this.player.endTurn();
@@ -186,20 +192,20 @@ function SimonGame(){
         if (!this.playerTurn){
             if (this.player.getStatus() == 'bad'){
                 if (strictMode){
-                    notes.innerHTML = "loooooser";
+                    notes.innerHTML = "You Lost! (Strict mode on)";
                 }
                 else {
-                    console.log('start comp');
+                    //console.log('start comp');
                     //console.time('compturn');
-                    setTimeout(function(){theGame.startComputerTurn()}, 3000);
+                    setTimeout(function(){theGame.startComputerTurn()}, 1000);
                 }
             }
             else{
                 this.level++;
                 if (this.level > this.rands.length){
                     // winner
-                    console.log("winner");
-                    notes.innerHTML = "winner!"
+                    //console.log("winner");
+                    notes.innerHTML = "Winner!"
                     
 for(var i=0; i<svgbtns.length;i++){
     svgbtns[i].classList.add("winner");
@@ -208,9 +214,9 @@ for(var i=0; i<svgbtns.length;i++){
                 }
                 else {
                     
-                    console.log('start comp');
+                    //console.log('start comp');
                     //console.time('compturn');
-                    setTimeout(function(){theGame.startComputerTurn()}, 3000);
+                    setTimeout(function(){theGame.startComputerTurn()}, 1000);
                 }
             }
         }
