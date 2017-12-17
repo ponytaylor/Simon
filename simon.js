@@ -172,6 +172,7 @@ function SimonGame(){
     this.checkForBadNote = function(){
         for(var cl=0; cl< this.player.btnClicks.length; cl++){
             if(this.player.btnClicks[cl] != this.rands[cl]){
+                // because Mom always says Whoops!
                 whoops_audio.play();
                 notes.innerHTML = "Try Again!";
                 this.playerTurn = false;
