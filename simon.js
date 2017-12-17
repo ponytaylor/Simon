@@ -193,7 +193,8 @@ function SimonGame(){
         if (!this.playerTurn){
             if (this.player.getStatus() == 'bad'){
                 if (strictMode){
-                    notes.innerHTML = "You Lost! (Strict mode on)";
+                    notes.innerHTML = "You Lost! Strict mode: Starting Over";
+                    setTimeout(function(){startSimonGame();}, 2000);
                 }
                 else {
                     //console.log('start comp');
@@ -208,9 +209,9 @@ function SimonGame(){
                     //console.log("winner");
                     notes.innerHTML = "Winner!"
                     
-for(var i=0; i<svgbtns.length;i++){
-    svgbtns[i].classList.add("winner");
-}
+                    for(var i=0; i<svgbtns.length;i++){
+                        svgbtns[i].classList.add("winner");
+                    }
 
                 }
                 else {
