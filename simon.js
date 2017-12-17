@@ -212,7 +212,7 @@ function SimonGame(){
                     for(var i=0; i<svgbtns.length;i++){
                         svgbtns[i].classList.add("winner");
                     }
-
+                    setTimeout(function(){startSimonGame();}, 2500);
                 }
                 else {
                     
